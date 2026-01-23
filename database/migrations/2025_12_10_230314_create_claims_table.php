@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('claims', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('client_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('policy_id')->constrained()->cascadeOnDelete();
+            $table->string('claim_number')->unique();
+            $table->text('description');
+            $table->date('incident_date');
+            $table->decimal('claim_amount', 15, 2)->nullable();
+            $table->decimal('approved_amount', 15, 2)->nullable();
+            $table->enum('status', ['submitted', 'under_review', 'docs_requested', 'forwarded', 'approved', 'rejected', 'settled'])->default('submitted');
+            $table->text('notes')->nullable();
+            $table->string('zoho_id')->nullable()->index();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('claims');
+    }
+};
