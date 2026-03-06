@@ -1,0 +1,20 @@
+name: skyydo-prod
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: skyydo-backend:prod
+    container_name: skyydo_backend_prod
+    env_file:
+      - .env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      PORT: 8080
+      RUN_MIGRATIONS: "${RUN_MIGRATIONS:-true}"
+      # RUN_DB_SEED: "true" # Uncomment to run `php artisan db:seed` on startup.
+    ports:
+      - "8000:8080"
+    restart: unless-stopped
