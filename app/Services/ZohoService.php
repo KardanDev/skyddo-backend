@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class ZohoService
 {
-    private string $clientId;
+    private ?string $clientId;
 
     private string $clientSecret;
 
@@ -21,8 +21,8 @@ class ZohoService
 
     public function __construct()
     {
-        $this->clientId = config('services.zoho.client_id');
-        $this->clientSecret = config('services.zoho.client_secret');
+        $this->clientId = config('services.zoho.client_id') ?? '';
+        $this->clientSecret = config('services.zoho.client_secret') ?? '';
         // $this->refreshToken = config('services.zoho.refresh_token');
     }
 
