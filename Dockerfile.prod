@@ -30,6 +30,6 @@ RUN chmod -R ug+rw storage bootstrap/cache \
 COPY docker/entrypoint.prod.sh /usr/local/bin/entrypoint.prod.sh
 RUN chmod +x /usr/local/bin/entrypoint.prod.sh
 
-EXPOSE 8080
+EXPOSE 8000
 
 ENTRYPOINT ["sh", "/usr/local/bin/entrypoint.prod.sh"]
